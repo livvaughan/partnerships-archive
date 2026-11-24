@@ -149,6 +149,14 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
             </sc-for>
           </section>
 
+          <button type="button" onClick="{{ goUnread }}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 1px solid #000000; background: #FFFFFF; text-align: left;">
+            <span style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em;">Couldn't read · {{ unreadCount }}</span>
+              <span style="font-size: 11px; font-weight: 300; letter-spacing: 0.01em; text-transform: none;">Articles the AI couldn't read in full, kept apart from Review necessary.</span>
+            </span>
+            <svg width="8" height="14" viewBox="0 0 10 18" fill="none" stroke="#000000" stroke-width="1.6" aria-hidden="true"><path d="M1 1l8 8-8 8"/></svg>
+          </button>
+
           <section aria-labelledby="showing" style="border: 1px solid #000000;">
             <div style="padding: 22px 24px 18px; display: flex; flex-direction: column; gap: 4px;">
               <h2 id="showing" style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.16em;">Showing up · {{ showingCount }}</h2>
@@ -291,6 +299,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
                 <span style="font-size: 15px; font-weight: 600;">{{ row.title }}</span>
                 <span style="font-size: 11px; font-weight: 400;">{{ row.listLabel }}</span>
                 <sc-if value="{{ row.flagged }}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; padding: 3px 10px; border: 1px solid {{ row.fg }}; font-size: 10px; font-weight: 600;">Review necessary</span></sc-if>
+                <sc-if value="{{ row.unread }}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; padding: 3px 10px; border: 1px solid {{ row.fg }}; font-size: 10px; font-weight: 600;">Couldn't read</span></sc-if>
               </span>
               <sc-if value="{{ row.annual }}" hint-placeholder-val="{{ false }}"><span style="padding: 3px 10px; border: 1px solid {{ row.fg }}; font-size: 10px; font-weight: 600;">Annual</span></sc-if>
             </button>
@@ -319,6 +328,12 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
           <sc-if value="{{ sel.flagged }}" hint-placeholder-val="{{ false }}">
             <div style="padding: 18px 22px; border: 1px solid #000000; display: flex; flex-direction: column; gap: 6px;">
               <span style="font-size: 12px; font-weight: 600;">Why review is necessary</span>
+              <span style="font-size: 14px; font-weight: 400; letter-spacing: 0.01em; text-transform: none;">{{ sel.why }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sel.unread }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 18px 22px; border: 1px solid #000000; display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 12px; font-weight: 600;">Why it couldn't be read</span>
               <span style="font-size: 14px; font-weight: 400; letter-spacing: 0.01em; text-transform: none;">{{ sel.why }}</span>
             </div>
           </sc-if>
@@ -2631,7 +2646,8 @@ const P = [
   ],
   "latest": "24 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -2660,35 +2676,8 @@ const P = [
   "latest": "24 Nov 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "Unclear whether a campaign featuring richie and her daughter counts as a house activation or as a showing-up sighting"
- },
- {
-  "key": "l4qbr9lg7f",
-  "title": "McDonald’s China Announces Neon Genesis Evangelion Collaboration Launching December 2, 2026",
-  "house": "",
-  "partner": "",
-  "orgType": "",
-  "category": "",
-  "arr": "",
-  "status": "",
-  "annual": false,
-  "summary": "",
-  "started": "",
-  "events": [],
-  "sources": [
-   {
-    "outlet": "Lifestyle Asia Hong Kong",
-    "headline": "McDonald’s China Announces Neon Genesis Evangelion Collaboration Launching December 2, 2026",
-    "date": "24 Nov 2026",
-    "url": "",
-    "quote": "",
-    "note": ""
-   }
-  ],
-  "latest": "24 Nov 2026",
-  "isNew": false,
-  "flagged": true,
-  "why": "Couldn't read the full article: the site answered 403; no other outlet's whole report of the same news"
  },
  {
   "key": "lr5pp0f54m",
@@ -2715,7 +2704,8 @@ const P = [
   ],
   "latest": "24 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Couldn't read the full article: the page had no article text; no other outlet's whole report of the same news"
  },
  {
@@ -2744,6 +2734,7 @@ const P = [
   "latest": "24 Nov 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "It is unclear whether the dior spa inside a belmond hotel is a partnership or a dior-run activation, and the article does not state a partnership deal"
  },
  {
@@ -2772,6 +2763,7 @@ const P = [
   "latest": "23 Nov 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "It is unclear whether lotusland is a named partner or only the host venue for the house's own exhibition"
  },
  {
@@ -2799,7 +2791,8 @@ const P = [
   ],
   "latest": "23 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -2827,7 +2820,8 @@ const P = [
   ],
   "latest": "23 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -2855,7 +2849,8 @@ const P = [
   ],
   "latest": "23 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Couldn't read the full article: the site answered 403; no other outlet's whole report of the same news"
  },
  {
@@ -2884,6 +2879,7 @@ const P = [
   "latest": "23 Nov 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "This round-up covers dozens of campaigns across many houses, so the choice of saint laurent and the collaboration category are uncertain"
  },
  {
@@ -2911,7 +2907,8 @@ const P = [
   ],
   "latest": "23 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; only part of the article could be read; only part of the article could be read; only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -2939,7 +2936,8 @@ const P = [
   ],
   "latest": "23 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Couldn't read the full article: the site answered 403; no other outlet's whole report of the same news"
  },
  {
@@ -2967,7 +2965,8 @@ const P = [
   ],
   "latest": "23 Nov 2026",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -2996,6 +2995,7 @@ const P = [
   "latest": "22 Nov 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "The louis vuitton name is only the event title, and the article does not state a sponsorship, so it could be a partnership"
  },
  {
@@ -3034,6 +3034,7 @@ const P = [
   "latest": "28 Sep 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "It is unclear whether the dinner is a tiffany activation with m.a.d. as a partner or mainly a guest sighting of cynthia erivo"
  },
  {
@@ -3072,6 +3073,7 @@ const P = [
   "latest": "27 Sep 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "It is unclear whether the book with publisher hannibal makes this a collaboration or whether it is only the house's own book launch event"
  },
  {
@@ -3100,6 +3102,7 @@ const P = [
   "latest": "19 Jun 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "The article covers retail stocking and a shop-in-shop for several watched houses, which may or may not count as a partnership, so the kind is uncertain"
  },
  {
@@ -3138,6 +3141,7 @@ const P = [
   "latest": "10 Mar 2026",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "Unsure whether a designer's own foundation counts as the house staging its own activation rather than an unrelated venture"
  },
  {
@@ -3166,6 +3170,7 @@ const P = [
   "latest": "12 Aug 2025",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "No category in the list fits a brand-owned animated film, so the category is left empty"
  },
  {
@@ -3194,6 +3199,7 @@ const P = [
   "latest": "11 Aug 2025",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "Unclear whether a brand-made animated film featuring its own mascot counts as an owned activation or is just brand content"
  },
  {
@@ -3221,7 +3227,8 @@ const P = [
   ],
   "latest": "20 Jun 2024",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -3250,6 +3257,7 @@ const P = [
   "latest": "2 Dec 2023",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "The erewhon collaboration is mentioned only in passing, so it is unclear whether the article reports it as a partnership or whether it is currently running"
  },
  {
@@ -3278,45 +3286,8 @@ const P = [
   "latest": "26 Mar 2021",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "The article does not say whether monáe is a ralph lauren ambassador, so it is unclear if this is a partnership or an unrelated celebrity appearance"
- },
- {
-  "key": "bu320if3ag",
-  "title": "Paris Fashion Week: Chloe Brings Coachella to the Runway",
-  "house": "Chloé",
-  "partner": "Este Haim",
-  "orgType": "Celebrity",
-  "category": "",
-  "arr": "",
-  "status": "",
-  "annual": false,
-  "summary": "Este Haim, with sisters Alana and Danielle, was seen wearing head-to-toe Chloé on her way into the brand's Spring 2019 fashion show on a Thursday morning in Paris. The article says creative director Natacha Ramsay-Levi had dressed the band for their Coachella performances in April. The article reports no new partnership or activation.",
-  "started": "",
-  "events": [
-   {
-    "title": "Chloé Spring 2019 runway show",
-    "date": "Date not given",
-    "place": "Paris",
-    "city": "Paris",
-    "venue": "",
-    "summary": "",
-    "sources": []
-   }
-  ],
-  "sources": [
-   {
-    "outlet": "The Hollywood Reporter",
-    "headline": "Paris Fashion Week: Chloe Brings Coachella to the Runway",
-    "date": "27 Sep 2018",
-    "url": "https://www.hollywoodreporter.com/lifestyle/style/paris-fashion-week-chloe-brings-coachella-runway-1147662/",
-    "quote": "",
-    "note": ""
-   }
-  ],
-  "latest": "27 Sep 2018",
-  "isNew": false,
-  "flagged": true,
-  "why": "It is unclear whether the band's coachella styling by the creative director makes them working partners of the house rather than fans wearing the brand"
  },
  {
   "key": "l4madkcksm",
@@ -3343,7 +3314,8 @@ const P = [
   ],
   "latest": "",
   "isNew": false,
-  "flagged": true,
+  "flagged": false,
+  "unread": true,
   "why": "Only part of the article could be read; no other outlet's whole report of the same news"
  },
  {
@@ -3382,6 +3354,7 @@ const P = [
   "latest": "",
   "isNew": false,
   "flagged": true,
+  "unread": false,
   "why": "The tiffany & co. and meta ai experience may mean meta is a named partner, which the article does not state clearly"
  }
 ];
@@ -3396,13 +3369,14 @@ const EFFECT = {
   Other: () => 'Your note is saved with this item for review.'
 };
 const VIEWS = {
-  All: (p) => !p.flagged && !p.showing,
+  All: (p) => !p.flagged && !p.showing && !p.unread,
   New: (p) => p.isNew,
   Annual: (p) => p.annual,
   'Review necessary': (p) => p.flagged,
+  "Couldn't read": (p) => p.unread,
   'Showing up': (p) => p.showing
 };
-const HEADINGS = { All: 'The archive', New: 'New since the 6 am run', Annual: 'Annual partnerships', 'Review necessary': 'Review necessary', 'Showing up': 'Showing up' };
+const HEADINGS = { All: 'The archive', New: 'New since the 6 am run', Annual: 'Annual partnerships', 'Review necessary': 'Review necessary', "Couldn't read": "Couldn't read", 'Showing up': 'Showing up' };
 const HOUSES = {
   'All houses': () => true,
   Chanel: (p) => p.house === 'Chanel',
@@ -3457,7 +3431,7 @@ class Component extends DCLogic {
   }
   open(id) {
     const p = P[id];
-    const view = p.flagged ? 'Review necessary' : p.showing ? 'Showing up' : 'All';
+    const view = p.flagged ? 'Review necessary' : p.unread ? "Couldn't read" : p.showing ? 'Showing up' : 'All';
     this.go('partnerships', { ...FILTERS, view, sel: id });
     toDetail();
   }
@@ -3486,7 +3460,7 @@ class Component extends DCLogic {
     }));
     return {
       ...shown, id, mistake, fixCategory: fix, label: label(shown),
-      flagged: !!p.flagged, showing: !!p.showing, missing: !p.hasPhoto, initials: initials(p),
+      flagged: !!p.flagged, unread: !!p.unread, showing: !!p.showing, missing: !p.hasPhoto, initials: initials(p),
       listLabel: [label(shown), p.latest].filter((x) => x).join(' · '),
       sourceTotal: p.sources.length, sourceCount: count(p.sources.length, 'source', 'sources'),
       eventTotal: p.events.length,
@@ -3516,6 +3490,7 @@ class Component extends DCLogic {
       { label: 'The archive', key: 'All', count: all.filter(VIEWS.All).length, pick: view('All') },
       { label: 'Annual', key: 'Annual', count: all.filter(VIEWS.Annual).length, pick: view('Annual') },
       { label: 'Review necessary', key: 'Review necessary', count: all.filter(VIEWS['Review necessary']).length, pick: view('Review necessary') },
+      { label: "Couldn't read", key: "Couldn't read", count: all.filter(VIEWS["Couldn't read"]).length, pick: view("Couldn't read") },
       { label: 'Showing up', key: 'Showing up', count: all.filter(VIEWS['Showing up']).length, pick: view('Showing up') },
       { label: 'Daily email', key: 'email', pick: () => this.go('email', {}) }
     ];
@@ -3538,7 +3513,9 @@ class Component extends DCLogic {
       goPartnerships: view('All'),
       goReview: view('Review necessary'),
       goEmail: () => this.go('email', {}),
-      reviewCount: all.filter((p) => p.flagged).length
+      reviewCount: all.filter((p) => p.flagged).length,
+      unreadCount: all.filter((p) => p.unread).length,
+      goUnread: view("Couldn't read")
     };
   }
   overview(all) {
