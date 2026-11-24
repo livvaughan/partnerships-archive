@@ -167,6 +167,17 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
             </sc-if>
           </section>
 
+          <section aria-labelledby="topics" style="border: 1px solid #000000; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px;">
+            <h2 id="topics" style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.16em;">By topic</h2>
+            <sc-for list="{{ topicBars }}" as="b" hint-placeholder-count="5">
+              <button type="button" onClick="{{ b.pick }}" style="display: grid; grid-template-columns: 120px minmax(0, 1fr) 20px; gap: 12px; align-items: center; min-height: 32px; padding: 0; border: 0; background: #FFFFFF; font-size: 11px; font-weight: 500; text-align: left;">
+                <span>{{ b.name }}</span>
+                <span style="height: 10px; border: 1px solid #000000;"><span style="display: block; height: 100%; width: {{ b.width }}; background: #000000;"></span></span>
+                <span style="text-align: right; font-variant-numeric: tabular-nums;">{{ b.n }}</span>
+              </button>
+            </sc-for>
+          </section>
+
           <section aria-labelledby="types" style="border: 1px solid #000000; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px;">
             <h2 id="types" style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.16em;">By type of organization</h2>
             <sc-for list="{{ typeBars }}" as="b" hint-placeholder-count="5">
@@ -256,6 +267,9 @@ button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible
         </div>
         <select id="f-category" aria-label="Category" value="{{ category }}" onChange="{{ pickCategory }}" style="min-height: 44px; max-width: 100%; padding: 8px 14px; border: 1px solid #000000; border-radius: 0; background: #FFFFFF; font-size: 11px; font-weight: 600;">
           <sc-for list="{{ categoryOptions }}" as="opt" hint-placeholder-count="5"><option value="{{ opt }}">{{ opt }}</option></sc-for>
+        </select>
+        <select id="f-topic" aria-label="Topic" value="{{ topic }}" onChange="{{ pickTopic }}" style="min-height: 44px; max-width: 100%; padding: 8px 14px; border: 1px solid #000000; border-radius: 0; background: #FFFFFF; font-size: 11px; font-weight: 600;">
+          <sc-for list="{{ topicOptions }}" as="opt" hint-placeholder-count="5"><option value="{{ opt }}">{{ opt }}</option></sc-for>
         </select>
         <select id="f-type" aria-label="Type of organization" value="{{ orgType }}" onChange="{{ pickType }}" style="min-height: 44px; max-width: 100%; padding: 8px 14px; border: 1px solid #000000; border-radius: 0; background: #FFFFFF; font-size: 11px; font-weight: 600;">
           <sc-for list="{{ typeOptions }}" as="opt" hint-placeholder-count="5"><option value="{{ opt }}">{{ opt }}</option></sc-for>
@@ -455,6 +469,7 @@ const P = [
   "house": "Dior",
   "filed": "2026-11-24 00:29:14.625425",
   "partner": "A24",
+  "topics": "Film, Performing arts, Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -520,6 +535,7 @@ const P = [
   "house": "Miu Miu",
   "filed": "2026-11-24 09:46:50.546991",
   "partner": "Pettinaroli",
+  "topics": "Fashion, Design",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -578,6 +594,7 @@ const P = [
   "house": "Miu Miu",
   "filed": "2026-11-24 00:29:13.821187",
   "partner": "Becky Armstrong",
+  "topics": "Film, Fashion",
   "orgType": "Celebrity",
   "category": "Ambassador",
   "arr": "Partnered",
@@ -653,6 +670,7 @@ const P = [
   "house": "Comme des Garçons",
   "filed": "2026-11-24 09:11:14.428408",
   "partner": "Marimekko",
+  "topics": "Design, Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -700,6 +718,7 @@ const P = [
   "house": "Dior",
   "filed": "2026-11-24 00:29:14.013141",
   "partner": "Hyunjin",
+  "topics": "Fashion, Music",
   "orgType": "Celebrity",
   "category": "Ambassador",
   "arr": "Partnered",
@@ -761,6 +780,7 @@ const P = [
   "house": "Tiffany",
   "filed": "2026-11-24 09:56:26.976814",
   "partner": "National Women's Soccer League",
+  "topics": "Sport, Design, Fashion",
   "orgType": "Sports",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -794,6 +814,7 @@ const P = [
   "house": "Chanel",
   "filed": "2026-11-24 09:46:50.225443",
   "partner": "Atlas Workshops",
+  "topics": "Film",
   "orgType": "Cultural Organization",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -852,6 +873,7 @@ const P = [
   "house": "Louis Vuitton",
   "filed": "2026-11-24 00:29:13.893792",
   "partner": "Ronald Ventura",
+  "topics": "Art, Fashion",
   "orgType": "Artist",
   "category": "Artist Collaboration",
   "arr": "Partnered",
@@ -924,6 +946,7 @@ const P = [
   "house": "Prada",
   "filed": "2026-11-24 00:29:16.163776",
   "partner": "Gentle Monster",
+  "topics": "Fashion, Design",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -957,6 +980,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:46:50.439604",
   "partner": "Bloomingdale's",
+  "topics": "Fashion, Music, Design",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1029,6 +1053,7 @@ const P = [
   "house": "Tiffany",
   "filed": "2026-11-24 00:29:16.401699",
   "partner": "Amanda Seyfried",
+  "topics": "Film, Fashion",
   "orgType": "Celebrity",
   "category": "Ambassador",
   "arr": "Partnered",
@@ -1062,6 +1087,7 @@ const P = [
   "house": "Prada",
   "filed": "2026-11-24 00:29:14.230956",
   "partner": "IOC-UNESCO",
+  "topics": "Art, Design, Fashion, Sport",
   "orgType": "Cultural Organization",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1120,6 +1146,7 @@ const P = [
   "house": "Louis Vuitton",
   "filed": "2026-11-24 00:29:14.314251",
   "partner": "Formula 1",
+  "topics": "Sport, Fashion",
   "orgType": "Brand",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1164,6 +1191,7 @@ const P = [
   "house": "Dior",
   "filed": "2026-11-24 00:29:14.167248",
   "partner": "Galaxy Macau",
+  "topics": "Art, Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1250,6 +1278,7 @@ const P = [
   "house": "Maison Margiela",
   "filed": "2026-11-24 00:29:15.999246",
   "partner": "Rimowa",
+  "topics": "Fashion, Design",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1318,6 +1347,7 @@ const P = [
   "house": "Dior",
   "filed": "2026-11-24 00:29:15.807905",
   "partner": "Lotte Duty Free",
+  "topics": "Fashion",
   "orgType": "Brand",
   "category": "Event",
   "arr": "Partnered",
@@ -1376,6 +1406,7 @@ const P = [
   "house": "Saint Laurent",
   "filed": "2026-11-24 00:29:16.220125",
   "partner": "Levi's",
+  "topics": "Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1409,6 +1440,7 @@ const P = [
   "house": "Chanel",
   "filed": "2026-11-24 00:29:15.729939",
   "partner": "Marrakech International Film Festival",
+  "topics": "Film, Fashion",
   "orgType": "Film Festival",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1467,6 +1499,7 @@ const P = [
   "house": "Ann Demeulemeester",
   "filed": "2026-11-24 00:29:15.664030",
   "partner": "Billy Idol",
+  "topics": "Fashion, Music",
   "orgType": "Artist",
   "category": "Artist Collaboration",
   "arr": "Partnered",
@@ -1507,6 +1540,7 @@ const P = [
   "house": "Louis Vuitton",
   "filed": "2026-11-24 10:39:43.104313",
   "partner": "America's Cup",
+  "topics": "Sport",
   "orgType": "Sports",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1565,6 +1599,7 @@ const P = [
   "house": "Rolex",
   "filed": "2026-11-24 00:29:16.692418",
   "partner": "Academy Museum of Motion Pictures",
+  "topics": "Film",
   "orgType": "Museum",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1609,6 +1644,7 @@ const P = [
   "house": "Maison Margiela",
   "filed": "2026-11-24 00:29:16.500271",
   "partner": "Havaianas",
+  "topics": "Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1653,6 +1689,7 @@ const P = [
   "house": "Manolo Blahnik",
   "filed": "2026-11-24 00:29:16.560458",
   "partner": "Bergdorf Goodman",
+  "topics": "Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1679,6 +1716,7 @@ const P = [
   "house": "Maison Margiela",
   "filed": "2026-11-24 00:29:16.609638",
   "partner": "Rebecca Hall",
+  "topics": "Film, Fashion",
   "orgType": "Celebrity",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1705,6 +1743,7 @@ const P = [
   "house": "Dries Van Noten",
   "filed": "2026-11-24 10:39:43.452094",
   "partner": "",
+  "topics": "Art, Design, Fashion",
   "orgType": "",
   "category": "Exhibition",
   "arr": "Owned",
@@ -1749,6 +1788,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:56:27.034940",
   "partner": "US Olympic and Paralympic Teams",
+  "topics": "Sport, Fashion",
   "orgType": "Sports",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1793,6 +1833,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:56:27.107674",
   "partner": "Team USA",
+  "topics": "Sport, Fashion",
   "orgType": "Sports",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1861,6 +1902,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:46:50.809134",
   "partner": "Neiman Marcus",
+  "topics": "Fashion",
   "orgType": "Brand",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1887,6 +1929,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:46:50.724881",
   "partner": "Spike Lee Fellows",
+  "topics": "Film, Fashion",
   "orgType": "Cultural Organization",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -1920,6 +1963,7 @@ const P = [
   "house": "Schiaparelli",
   "filed": "2026-11-24 00:29:16.648770",
   "partner": "Neiman Marcus",
+  "topics": "Fashion",
   "orgType": "Brand",
   "category": "Event",
   "arr": "Partnered",
@@ -1946,6 +1990,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:56:27.211658",
   "partner": "MGM Studios",
+  "topics": "Film, Fashion",
   "orgType": "Film",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -1972,6 +2017,7 @@ const P = [
   "house": "Chanel",
   "filed": "2026-11-24 00:29:14.859983",
   "partner": "The Museum of Modern Art",
+  "topics": "Film, Fashion",
   "orgType": "Museum",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2054,6 +2100,7 @@ const P = [
   "house": "Chanel",
   "filed": "2026-11-24 00:29:15.273949",
   "partner": "BAAND Together Dance Festival",
+  "topics": "Performing arts, Fashion",
   "orgType": "Cultural Organization",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2136,6 +2183,7 @@ const P = [
   "house": "Chanel",
   "filed": "2026-11-24 00:29:15.329381",
   "partner": "Dia Art Foundation",
+  "topics": "Art",
   "orgType": "Cultural Organization",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2218,6 +2266,7 @@ const P = [
   "house": "Bottega Veneta",
   "filed": "2026-11-24 09:46:49.747316",
   "partner": "La Biennale di Venezia, Pier Luigi Nervi Foundation, Palazzo Grassi Punta della Dogana Pinault Collection, Italian Pavilion",
+  "topics": "Art, Film, Architecture",
   "orgType": "Cultural Organization, Museum",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2334,6 +2383,7 @@ const P = [
   "house": "Manolo Blahnik",
   "filed": "2026-11-24 00:29:14.498549",
   "partner": "Victoria & Albert Museum",
+  "topics": "Art, Fashion, Design",
   "orgType": "Museum",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2392,6 +2442,7 @@ const P = [
   "house": "Chanel",
   "filed": "2026-11-24 00:29:14.755613",
   "partner": "Tribeca",
+  "topics": "Film, Fashion",
   "orgType": "Film Festival",
   "category": "Event",
   "arr": "Partnered",
@@ -2498,6 +2549,7 @@ const P = [
   "house": "Saint Laurent",
   "filed": "2026-11-24 00:29:14.436060",
   "partner": "Cai Guo-Qiang, National Art Center, Tokyo",
+  "topics": "Art, Fashion",
   "orgType": "Artist, Museum",
   "category": "Artist Collaboration",
   "arr": "Partnered",
@@ -2570,6 +2622,7 @@ const P = [
   "house": "Dior",
   "filed": "2026-11-24 00:29:14.919150",
   "partner": "Sundance Institute",
+  "topics": "Film, Fashion",
   "orgType": "Cultural Organization",
   "category": "Collaboration",
   "arr": "Partnered",
@@ -2628,6 +2681,7 @@ const P = [
   "house": "Louis Vuitton",
   "filed": "2026-11-24 09:46:49.843617",
   "partner": "UNICEF",
+  "topics": "Fashion, Literature, Design",
   "orgType": "Cultural Organization",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2668,6 +2722,7 @@ const P = [
   "house": "Tiffany",
   "filed": "2026-11-24 09:56:26.661887",
   "partner": "US Open",
+  "topics": "Sport",
   "orgType": "Sports",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -2736,6 +2791,7 @@ const P = [
   "house": "Ralph Lauren",
   "filed": "2026-11-24 09:56:26.842101",
   "partner": "US Open",
+  "topics": "Sport, Fashion",
   "orgType": "Sports",
   "category": "Sponsorship or Patronage",
   "arr": "Partnered",
@@ -3346,7 +3402,7 @@ const P = [
  }
 ];
 const PHOTOS = {"Miu Miu × Becky Armstrong": {"src": "photos/a-efed84631a.jpg", "from": "WWD", "url": "https://wwd.com/fashion-news/fashion-scoops/miu-miu-becky-armstrong-brand-ambassador-exclusive-1239429246/"}, "Dior × Hyunjin": {"src": "photos/a-0f28b331d8.jpg", "from": "Luxus Plus", "url": "https://luxus-plus.com/en/dior-names-hyunjin-member-of-the-korean-group-stray-kids-its-new-ambassador/"}, "Prada × IOC-UNESCO": {"src": "photos/a-4f31ce52b9.jpg", "from": "The Impression", "url": "https://theimpression.com/prada-and-unesco-launch-global-sea-beyond-community-projects-initiative/"}, "Louis Vuitton × Formula 1": {"src": "photos/a-c55e7beafe.jpg", "from": "Flaunt Magazine", "url": "https://www.flaunt.com/post/f1-louis-vuitton-2026"}, "Dior × Galaxy Macau": {"src": "photos/a-438f7c7706.jpg", "from": "Media OutReach Newswire", "url": "https://www.media-outreach.com/news/macau/2026/11/23/503582/where-festive-moments-shine-galaxy-macau-launches-extraordinary-winter-experiences-with-the-dior-festive-mansion-and-more/"}, "Louis Vuitton × America's Cup": {"src": "photos/a-5ee51d41ef.jpg", "from": "Sail-World.com", "url": "https://www.sail-world.com/news/301777/Naples-to-host-38th-Americas-Cup-in-2027"}, "Dior × A24": {"src": "photos/b-19.jpg", "from": "theimpression.com", "url": "https://theimpression.com/dior-and-a24-announce-two-year-creative-partnership/"}, "Louis Vuitton × Ronald Ventura": {"src": "photos/b-06.jpg", "from": "Vogue Philippines", "url": "https://vogue.ph/fashion/louis-vuitton-manila-les-extraordinaires-ronald-ventura/"}, "Prada × Gentle Monster": {"src": "photos/b-00.jpg", "from": "Hypebeast", "url": "https://hypebeast.com/2026/6/prada-gentle-monster-collaboration-2026-release-date-info"}, "Tiffany × Amanda Seyfried": {"src": "photos/b-01.jpg", "from": "The Hollywood Reporter", "url": "https://www.hollywoodreporter.com/lifestyle/style/amanda-seyfried-tiffany-co-house-ambassador-holiday-short-1236742012/"}, "Maison Margiela × Rimowa": {"src": "photos/b-02.jpg", "from": "ICON-ICON", "url": "https://www.icon-icon.com/rimowa-maison-margiela-patine-voyage/"}, "Dior × Lotte Duty Free": {"src": "photos/b-03.jpg", "from": "dfnionline.com", "url": "https://www.dfnionline.com/latest-news/lotte-duty-free-dior-host-exclusive-makeup-masterclass-20-11-2026/"}, "Saint Laurent × Levi's": {"src": "photos/b-04.jpg", "from": "PAUSE Online", "url": "https://pausemag.co.uk/2026/11/spotted-saint-laurent-x-levis-collab-surfaces-online/"}, "Chanel × Marrakech International Film Festival": {"src": "photos/b-05.jpg", "from": "nss g-club", "url": "https://www.nssgclub.com/en/beauty/47781/chanel-is-a-beauty-partner-of-the-marrakech-international-film-festival"}, "Ann Demeulemeester × Billy Idol": {"src": "photos/b-07.jpg", "from": "Luxferity", "url": "https://luxferity.com/magazine/ann-demeulemeester-billy-idol-capsule"}, "Maison Margiela × Havaianas": {"src": "photos/b-09.jpg", "from": "WWD", "url": "https://wwd.com/footwear-news/shoe-trends/mm6-maison-margiela-havaianas-six-toe-flip-flops-milan-1239259706/"}, "Manolo Blahnik × Bergdorf Goodman": {"src": "photos/b-10.jpg", "from": "WWD", "url": "https://wwd.com/footwear-news/shoe-industry-news/roger-vivier-manolo-blahnik-bergdorf-goodman-shoes-1239245409/"}, "Maison Margiela × Rebecca Hall": {"src": "photos/b-11.jpg", "from": "WWD", "url": "https://wwd.com/fashion-news/designer-luxury/maison-margiela-fall-2026-campaign-rebecca-hall-1239200518/"}, "Schiaparelli × Neiman Marcus": {"src": "photos/b-12.jpg", "from": "The Hollywood Reporter", "url": "https://www.hollywoodreporter.com/lifestyle/style/schiaparelli-neiman-marcus-party-celebrity-guests-1235618134/"}, "Chanel × The Museum of Modern Art": {"src": "photos/b-13.jpg", "from": "theimpression.com", "url": "https://theimpression.com/chanel-and-moma-to-honor-steven-spielberg/"}, "Chanel × BAAND Together Dance Festival": {"src": "photos/b-14.jpg", "from": "wmagazine.com", "url": "https://www.wmagazine.com/fashion/baand-together-dance-festival-2025-chanel-performance"}, "Chanel × Dia Art Foundation": {"src": "photos/b-15.jpg", "from": "culturedmag.com", "url": "https://culturedmag.com/article/2026/11/03/parties-dia-fall-night-2026-roni-horn-steve-mcqueen/"}, "Manolo Blahnik × Victoria & Albert Museum": {"src": "photos/b-16.jpg", "from": "fashionunited.com", "url": "https://fashionunited.com/news/culture/marie-antoinette-to-be-subject-of-manolo-blahnik-sponsored-v-a-exhibition/2025061866645"}, "Chanel × Tribeca": {"src": "photos/b-17.jpg", "from": "Vogue", "url": "https://www.vogue.com/slideshow/chanel-tribeca-through-her-lens-kickoff-luncheon-september-2026"}, "Saint Laurent × Cai Guo-Qiang": {"src": "photos/b-18.jpg", "from": "culturedmag.com", "url": "https://culturedmag.com/article/2023/06/29/saint-laurent-cai-guo-qiang-tokyo-japan"}, "Dior × Sundance Institute": {"src": "photos/b-20.jpg", "from": "sundance.org", "url": "https://www.sundance.org/blogs/dior-x-sundance-institute-partnership-announced-ahead-of-2027-sundance-film-festival/"}};
-const FIGURES = {"spend": "$0.60", "spendPct": "6%", "found": "1,538", "newArticles": "83", "notUsed": 70, "waiting": 13};
+const FIGURES = {"spend": "$0.61", "spendPct": "6%", "found": "1,538", "newArticles": "83", "notUsed": 70, "waiting": 13};
 
 const CATEGORIES = ['Sponsorship or Patronage', 'Exhibition', 'Collaboration', 'Artist Collaboration', 'Event', 'Ambassador'];
 const EFFECT = {
@@ -3369,18 +3425,20 @@ const HOUSES = {
   Chanel: (p) => p.house === 'Chanel',
   'Other houses': (p) => !!p.house && p.house !== 'Chanel'
 };
-const ANY = { category: 'All categories', orgType: 'All types of organization', org: 'All organizations', city: 'All cities', venue: 'All venues' };
+const ANY = { category: 'All categories', topic: 'All topics', orgType: 'All types of organization', org: 'All organizations', city: 'All cities', venue: 'All venues' };
 const FILTERS = { view: 'All', houses: 'All houses', ...ANY, search: '' };
 const split = (v) => (v ? v.split(', ') : []);
 const orgsOf = (p) => split(p.partner);
 const typesOf = (p) => split(p.orgType);
+const topicsOf = (p) => split(p.topics);
+const TOPICS = ['Art', 'Film', 'Music', 'Literature', 'Performing arts', 'Design', 'Architecture', 'Sport', 'Fashion'];
 const citiesOf = (p) => p.events.map((e) => e.city).filter((x) => x);
 const venuesOf = (p) => p.events.map((e) => e.venue).filter((x) => x);
 const uniq = (lists) => [...new Set(lists.flat())].sort((a, b) => a.localeCompare(b));
 const dash = (v) => (v ? v : '—');
 const count = (n, one, many) => (n === 1 ? `1 ${one}` : `${n} ${many}`);
 const label = (p) => [p.house, p.showing ? 'Showing up' : p.category, p.annual ? 'Annual' : ''].filter((x) => x).join(' · ') || 'Not yet known';
-const matches = (p, text) => !text || [p.title, p.house, p.partner, p.orgType, p.category, ...citiesOf(p), ...venuesOf(p), ...p.events.map((e) => e.title)].join(' ').toLowerCase().includes(text.toLowerCase());
+const matches = (p, text) => !text || [p.title, p.house, p.partner, p.topics, p.orgType, p.category, ...citiesOf(p), ...venuesOf(p), ...p.events.map((e) => e.title)].join(' ').toLowerCase().includes(text.toLowerCase());
 const initials = (p) => (p.house || '?').split(' ').map((w) => w[0]).join('').slice(0, 3);
 const toTop = () => { try { window.scrollTo(0, 0); } catch (e) { /* no window to scroll */ } };
 const toDetail = () => {
@@ -3427,6 +3485,7 @@ class Component extends DCLogic {
     return [
       { label: 'House', value: dash(p.house) },
       { label: p.showing ? 'Who' : 'Organization', value: dash(p.partner) },
+      { label: 'Topics', value: dash(p.topics) },
       { label: 'Type of organization', value: dash(p.orgType || (types.length ? types.join(', ') : '')) },
       { label: 'Category', value: p.showing ? 'Showing up' : dash(category) },
       { label: 'Partnered or owned', value: dash(p.arr) },
@@ -3527,6 +3586,10 @@ class Component extends DCLogic {
       review: flagged.slice(0, 4),
       showingCount: all.filter((p) => p.showing).length,
       showingEmpty: !all.some((p) => p.showing),
+      topicBars: TOPICS.map((t) => ({ name: t, n: kept.filter((p) => topicsOf(p).includes(t)).length }))
+        .filter((b) => b.n > 0)
+        .map((b, _, list) => ({ ...b, width: `${Math.round((b.n / Math.max(...list.map((x) => x.n))) * 100)}%`,
+          pick: () => this.go('partnerships', { ...FILTERS, topic: b.name }) })),
       typeBars: types.map((t) => ({
         name: t, n: typeN(t), width: `${Math.round((typeN(t) / most) * 100)}%`,
         pick: () => this.go('partnerships', { ...FILTERS, orgType: t })
@@ -3543,10 +3606,11 @@ class Component extends DCLogic {
   }
   partnerships(all) {
     const s = this.state;
-    const { view, houses, category, orgType, org, city, venue, search, sel, marks, fixes } = s;
+    const { view, houses, category, topic, orgType, org, city, venue, search, sel, marks, fixes } = s;
     const pool = all.filter(VIEWS[view]);
     const keep = (p) => HOUSES[houses](p)
       && (category === ANY.category || p.category === category)
+      && (topic === ANY.topic || topicsOf(p).includes(topic))
       && (orgType === ANY.orgType || typesOf(p).includes(orgType))
       && (org === ANY.org || orgsOf(p).includes(org))
       && (city === ANY.city || citiesOf(p).includes(city))
@@ -3569,8 +3633,9 @@ class Component extends DCLogic {
         bg: houses === name ? '#000000' : '#FFFFFF', fg: houses === name ? '#FFFFFF' : '#000000',
         pick: () => this.setState({ houses: name })
       })),
-      category, orgType, org, city, venue,
+      category, topic, orgType, org, city, venue,
       categoryOptions: [ANY.category, ...CATEGORIES],
+      topicOptions: [ANY.topic, ...TOPICS],
       typeOptions: [ANY.orgType, ...uniq(pool.map(typesOf))],
       orgOptions: [ANY.org, ...uniq(pool.map(orgsOf))],
       cityOptions: [ANY.city, ...uniq(pool.map(citiesOf))],
@@ -3587,7 +3652,7 @@ class Component extends DCLogic {
       })),
       hasSel: !!current,
       sel: current || all[0],
-      pickCategory: set('category'), pickType: set('orgType'), pickOrg: set('org'), pickCity: set('city'), pickVenue: set('venue'),
+      pickCategory: set('category'), pickTopic: set('topic'), pickType: set('orgType'), pickOrg: set('org'), pickCity: set('city'), pickVenue: set('venue'),
       resetFilters: () => this.setState({ ...FILTERS, view }),
       showAll: () => this.setState({ ...FILTERS }),
       pickMistake: (e) => current && this.setState({ marks: { ...marks, [current.id]: e.target.value } }),
